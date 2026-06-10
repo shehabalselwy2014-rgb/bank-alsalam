@@ -3,464 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚙️ لوحة الإدارة - بنك السلام كابيتال | مسابقة كأس العالم 2026</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <style>
-    .admin-layout { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
-    .admin-sidebar { background: #1a2a6b; color: white; padding: 20px; }
-    .admin-sidebar h2 { font-size: 18px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-    .admin-sidebar .nav-item {
-      display: flex; align-items: center; gap: 10px; padding: 12px 15px;
-      border-radius: 10px; cursor: pointer; transition: all 0.3s ease;
-      margin-bottom: 5px; color: rgba(255,255,255,0.7); border: none;
-      background: none; width: 100%; text-align: right; font-size: 15px;
-    }
-    .admin-sidebar .nav-item:hover, .admin-sidebar .nav-item.active { background: rgba(255,255,255,0.1); color: white; }
-    .admin-content { padding: 30px; background: var(--bg); }
-    .admin-content h1 { font-size: 24px; margin-bottom: 10px; color: #283c8c; }
-    .admin-card { background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 25px; margin-bottom: 25px; }
-    .admin-card h3 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: #283c8c; }
-    .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-    .result-group { border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; }
-    .result-group h4 { margin-bottom: 12px; color: #283c8c; }
-    .result-select { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; margin-bottom: 8px; }
-    .stat-value { font-size: 32px; font-weight: 900; color: #283c8c; }
-    .stat-label { font-size: 14px; color: var(--text-light); }
-    .inline-stat { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
-    .admin-header-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; }
-    .badge-green { background: #d4edda; color: #155724; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-    .badge-red { background: #f8d7da; color: #721c24; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-    .toggle-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
-    .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-    .toggle-switch input:checked + .toggle-slider { background-color: #283c8c; }
-    .toggle-switch input:checked + .toggle-slider:before { transform: translateX(24px); }
-    .admin-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
-    .admin-logo img { height: 40px; width: auto; border-radius: 6px; }
-    .match-result-input { width: 50px; padding: 8px; border: 2px solid #ddd; border-radius: 6px; text-align: center; font-size: 16px; font-weight: 700; }
-    .match-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
-    @media (max-width: 768px) {
-      .admin-layout { grid-template-columns: 1fr; }
-      .admin-sidebar { display: flex; overflow-x: auto; gap: 5px; padding: 10px; }
-      .admin-sidebar h2, .admin-sidebar .admin-logo { display: none; }
-      .admin-sidebar .nav-item { white-space: nowrap; padding: 8px 12px; font-size: 13px; }
-      .results-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <title>🏆 بنك السلام كابيتال | مسابقة توقعات كأس العالم 2026 - مأرب، اليمن</title>
+  <meta name="description" content="مسابقة بنك السلام كابيتال لتوقعات كأس العالم 2026 - توقع المتأهلين ونتائج المباريات واربح جوائز تصل إلى 20,000 ريال يمني">
+  <meta property="og:title" content="بنك السلام كابيتال | مسابقة توقعات كأس العالم 2026">
+  <meta property="og:description" content="توقع المتأهلين ونتائج المباريات واربح جوائز تصل إلى 20,000 ريال يمني">
+  <meta property="og:image" content="assets/logo-bank.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="admin-layout">
-    <aside class="admin-sidebar">
-      <div class="admin-logo">
-        <img src="../assets/logo-bank.png" alt="بنك السلام كابيتال">
-        <span style="font-size:16px;font-weight:700;">السلام كابيتال</span>
-      </div>
-      <h2>⚙️ الإدارة</h2>
-      <button class="nav-item active" onclick="showAdminTab('dashboard',this)">📊 لوحة المعلومات</button>
-      <button class="nav-item" onclick="showAdminTab('groups',this)">📋 نتائج المجموعات</button>
-      <button class="nav-item" onclick="showAdminTab('matches',this)">⚽ نتائج المباريات</button>
-      <button class="nav-item" onclick="showAdminTab('settings',this)">⚙️ الإعدادات</button>
-      <button class="nav-item" onclick="showAdminTab('export',this)">📦 تصدير البيانات</button>
-      <button class="nav-item" onclick="window.open('../index.html','_blank')">🏠 الموقع</button>
-    </aside>
+  <div id="toastContainer" class="toast-container"></div>
 
-    <main class="admin-content">
-      <div class="admin-header-bar">
-        <div>
-          <h1>⚙️ لوحة إدارة المسابقة</h1>
-          <p style="color:var(--text-light);margin-bottom:5px;">بنك السلام كابيتال - مأرب، اليمن 🇾🇪</p>
-        </div>
-        <div style="display:flex;gap:10px;align-items:center;">
-          <img src="../assets/logo-bank.png" alt="بنك السلام كابيتال" style="height:30px;width:auto;border-radius:4px;">
-          <span id="predictionsStatusBadge" class="badge-green">✅ مفتوح</span>
-        </div>
-      </div>
-
-      <!-- Dashboard -->
-      <div id="tabDashboard" class="admin-tab">
-        <div class="admin-card"><h3>📊 إحصائيات عامة</h3>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;">
-            <div style="text-align:center;padding:15px;background:#f8f9fa;border-radius:10px;"><div class="stat-value" id="statParticipants">0</div><div class="stat-label">👥 المشاركون</div></div>
-            <div style="text-align:center;padding:15px;background:#f8f9fa;border-radius:10px;"><div class="stat-value" id="statWithPredictions">0</div><div class="stat-label">📋 توقعوا المجموعات</div></div>
-            <div style="text-align:center;padding:15px;background:#f8f9fa;border-radius:10px;"><div class="stat-value" id="statMatchPreds">0</div><div class="stat-label">⚽ توقعوا المباريات</div></div>
-            <div style="text-align:center;padding:15px;background:#f8f9fa;border-radius:10px;"><div class="stat-value" id="statBankClients">0</div><div class="stat-label">🏦 عملاء السلام كابيتال</div></div>
-          </div>
-        </div>
-        <div class="admin-card"><h3>🏆 أفضل 10</h3><div id="topParticipantsList"><p style="color:var(--text-light);">لا توجد بيانات بعد</p></div></div>
-        <div class="admin-card"><h3>📈 تحليل التوقعات</h3><div id="predictionsAnalysis"><p style="color:var(--text-light);">جاري التحميل...</p></div></div>
-      </div>
-
-      <!-- نتائج المجموعات -->
-      <div id="tabGroups" class="admin-tab" style="display:none;">
-        <div class="admin-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
-            <h3>📋 نتائج المجموعات</h3>
-            <div style="display:flex;gap:10px;">
-              <button class="btn" style="background:#27ae60;color:white;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;" onclick="saveGroupResults()">💾 حفظ</button>
-              <button class="btn" style="background:#e74c3c;color:white;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;" onclick="clearGroupResults()">🗑️ مسح</button>
-            </div>
-          </div>
-          <p style="color:var(--text-light);font-size:14px;margin-bottom:20px;">أدخل الترتيب النهائي للمجموعات وأفضل 8 ثوالث</p>
-          <div class="results-grid" id="resultsGrid"></div>
-          <div class="admin-card mt-20" style="background:#fefaf0;border:2px dashed #d4a843;">
-            <h3>⭐ أفضل 8 من المركز الثالث</h3>
-            <div class="best-third-grid" id="adminBestThirdGrid"></div>
-          </div>
-          <div style="text-align:center;margin-top:20px;">
-            <button class="btn btn-lg" style="background:#283c8c;color:white;border:none;padding:14px 36px;border-radius:50px;cursor:pointer;font-size:18px;font-weight:700;" onclick="saveGroupResults()">✅ حفظ نتائج المجموعات</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- نتائج المباريات -->
-      <div id="tabMatches" class="admin-tab" style="display:none;">
-        <div class="admin-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
-            <h3>⚽ نتائج المباريات</h3>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-sm" style="background:#283c8c;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;" onclick="filterMatchRound('all')">الكل</button>
-              <button class="btn btn-sm filter-btn" style="background:#e0e0e0;color:#333;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;" onclick="filterMatchRound('md1')">الجولة 1</button>
-              <button class="btn btn-sm filter-btn" style="background:#e0e0e0;color:#333;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;" onclick="filterMatchRound('md2')">الجولة 2</button>
-              <button class="btn btn-sm filter-btn" style="background:#e0e0e0;color:#333;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;" onclick="filterMatchRound('md3')">الجولة 3</button>
-              <button class="btn btn-sm" style="background:#27ae60;color:white;border:none;padding:6px 16px;border-radius:20px;cursor:pointer;" onclick="saveMatchResults()">💾 حفظ النتائج</button>
-            </div>
-          </div>
-          <p style="color:var(--text-light);font-size:14px;margin-bottom:15px;">أدخل النتائج النهائية لكل مباراة (الفائز/تعادل = 2 نقاط، النتيجة الصحيحة = 5 نقاط)</p>
-          <div id="adminMatchResults"></div>
-          <div style="text-align:center;margin-top:20px;">
-            <button class="btn btn-lg" style="background:#283c8c;color:white;border:none;padding:14px 36px;border-radius:50px;cursor:pointer;font-size:18px;font-weight:700;" onclick="saveMatchResults()">✅ حفظ نتائج المباريات وإعادة حساب النقاط</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Settings -->
-      <div id="tabSettings" class="admin-tab" style="display:none;">
-        <div class="admin-card"><h3>⚙️ إعدادات المسابقة</h3>
-          <div class="inline-stat"><span>🔓 فتح/إغلاق التوقعات</span><label class="toggle-switch"><input type="checkbox" id="togglePredictions" onchange="togglePredictions()"><span class="toggle-slider"></span></label></div>
-          <div class="inline-stat"><span>📊 إعادة حساب النقاط</span><button class="btn btn-sm" style="background:#283c8c;color:white;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;" onclick="recalculateAll()">🔄 إعادة الحساب</button></div>
-          <div class="inline-stat"><span>🗑️ حذف البيانات (للاختبار)</span><button class="btn btn-sm" style="background:#e74c3c;color:white;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;" onclick="resetAllData()">⚠️ حذف الكل</button></div>
-        </div>
-      </div>
-
-      <!-- Export -->
-      <div id="tabExport" class="admin-tab" style="display:none;">
-        <div class="admin-card"><h3>📦 تصدير البيانات</h3>
-          <p style="margin-bottom:20px;color:var(--text-light);">بيانات المشاركين - بنك السلام كابيتال</p>
-          <div style="display:flex;gap:15px;flex-wrap:wrap;">
-            <button class="btn" style="background:#27ae60;color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;" onclick="exportCSV()">📄 CSV (Excel)</button>
-            <button class="btn" style="background:#283c8c;color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;" onclick="exportJSON()">📋 JSON</button>
-            <button class="btn" style="background:#666;color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;" onclick="window.print()">🖨️ طباعة</button>
-          </div>
-          <div class="mt-20" style="background:#f8f9fa;border-radius:10px;padding:15px;"><h4 style="margin-bottom:10px;">معاينة</h4>
-            <div id="exportPreview" style="font-size:12px;max-height:300px;overflow-y:auto;background:white;padding:10px;border:1px solid #eee;border-radius:6px;font-family:monospace;direction:ltr;text-align:left;">جاري...</div>
-          </div>
-        </div>
-      </div>
-    </main>
+  <!-- الشريط العلوي -->
+  <div class="top-bar" style="background:linear-gradient(135deg,#283c8c,#1a2a6b);">
+    <span class="live-dot"></span>
+    🏆 بنك السلام كابيتال | مسابقة توقعات كأس العالم 2026 | مأرب - اليمن 🇾🇪
   </div>
 
-  <script src="../js/data.js"></script>
-  <script>
-    // ==================== إدارة التخزين ====================
-    function getData(k,d) { try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d} }
-    function setData(k,v) { try{localStorage.setItem(k,JSON.stringify(v))}catch(e){} }
-    let participants=[], officialResults={}, settings={}, matchResults={};
-    let currentMatchFilter='all';
+  <!-- الهيدر الرئيسي -->
+  <header class="main-header" style="background:linear-gradient(135deg,#283c8c 0%,#1a2a6b 50%,#0d1a4a 100%);">
+    <div class="container">
+      <div class="logo-area">
+        <div class="bank-logo" style="display:flex;align-items:center;gap:10px;">
+          <img src="assets/logo-bank.png" alt="بنك السلام كابيتال" style="height:55px;width:auto;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.2);">
+          <div>
+            <div style="font-size:22px;font-weight:900;">السلام كابيتال</div>
+            <div style="font-size:11px;opacity:0.7;">للتمويل الأصغر الإسلامي 🏦</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <span class="team-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.2);font-size:12px;">🇾🇪 مأرب - اليمن</span>
+          <span class="team-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.2);font-size:12px;">🌍 كأس العالم 2026</span>
+        </div>
+      </div>
+      <div class="hero">
+        <h1>🎯 <span style="color:#d4a843;">توقع</span> المتأهلين <span style="color:#d4a843;">والمباريات</span><br>واربح الجوائز 🏆</h1>
+        <p style="font-size:16px;">مسابقة بنك السلام كابيتال | توقع المتصدر والوصيف من كل مجموعة 🎯 توقع نتائج المباريات ⚽ وفز بجوائز نقدية تصل إلى <strong>20,000 ريال يمني</strong></p>
+        <div class="countdown">
+          <div class="time-box"><span class="number">0</span><span class="label">يوم</span></div>
+          <div class="time-box"><span class="number">0</span><span class="label">ساعة</span></div>
+          <div class="time-box"><span class="number">0</span><span class="label">دقيقة</span></div>
+          <div class="time-box"><span class="number">0</span><span class="label">ثانية</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    function loadAllData() {
-      participants=getData('worldcup2026_participants',[]);
-      officialResults=getData('worldcup2026_results',{});
-      settings=getData('worldcup2026_settings',{predictionsOpen:true});
-      matchResults=getData('worldcup2026_matchResults',{});
-      const tp=document.getElementById('togglePredictions');
-      if(tp) tp.checked=settings.predictionsOpen;
-      updateStatusBadge();
-    }
+  <!-- المحتوى الرئيسي -->
+  <main class="main-content" id="mainContent">
+    <div class="container text-center" style="padding:40px 20px;">
+      <img src="assets/logo-bank.png" alt="بنك السلام كابيتال" style="height:60px;width:auto;border-radius:10px;margin-bottom:15px;">
+      <div class="loading-spinner" style="border-color:rgba(0,0,0,0.1);border-top-color:#283c8c;width:40px;height:40px;border-width:4px;"></div>
+      <p style="margin-top:20px;color:var(--text-light);">جاري تحميل منصة مسابقة بنك السلام كابيتال...</p>
+    </div>
+  </main>
 
-    function showAdminTab(tab,btn) {
-      document.querySelectorAll('.admin-tab').forEach(t=>t.style.display='none');
-      document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-      if(btn) btn.classList.add('active');
-      const m={dashboard:'tabDashboard',groups:'tabGroups',matches:'tabMatches',settings:'tabSettings',export:'tabExport'};
-      const el=document.getElementById(m[tab]);
-      if(el) el.style.display='block';
-      if(tab==='dashboard') refreshDashboard();
-      if(tab==='groups') renderGroupsForm();
-      if(tab==='matches') renderMatchResults();
-      if(tab==='export') refreshExport();
-    }
+  <!-- نافذة الشروط -->
+  <div class="modal-overlay" id="termsModal">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3>📋 الشروط والأحكام</h3>
+        <button class="modal-close" onclick="document.getElementById('termsModal').classList.remove('show')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="text-align:center;margin-bottom:20px;">
+          <img src="assets/logo-bank.png" alt="بنك السلام كابيتال" style="height:55px;width:auto;border-radius:8px;">
+          <h4 style="margin-top:10px;color:#283c8c;">بنك السلام كابيتال للتمويل الأصغر الإسلامي</h4>
+          <p style="font-size:13px;color:var(--text-light);">🇾🇪 مأرب - الجمهورية اليمنية</p>
+        </div>
+        <h4>الشروط والأحكام</h4>
+        <p><strong>1. المدة:</strong> 11 - 28 يونيو 2026</p>
+        <p><strong>2. الأهلية:</strong> للأفراد فوق 18 عاماً من المقيمين في اليمن</p>
+        <p><strong>3. آلية المشاركة:</strong> التسجيل عبر رابط المسابقة، اختيار التوقعات للمجموعات الـ12، توقع نتائج المباريات</p>
+        <p><strong>4. الجوائز:</strong> تصرف عبر فروع بنك السلام كابيتال في مأرب بالريال اليمني</p>
+        <p><strong>5. الإعلان:</strong> عبر صفحات بنك السلام كابيتال الرسمية</p>
+        <p><strong>6. القرارات النهائية:</strong> تعود لبنك السلام كابيتال</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" style="background:#283c8c;color:white;border:none;padding:10px 24px;border-radius:50px;cursor:pointer;" onclick="document.getElementById('termsModal').classList.remove('show')">موافق</button>
+      </div>
+    </div>
+  </div>
 
-    function refreshDashboard() {
-      loadAllData();
-      document.getElementById('statParticipants').textContent=participants.length;
-      document.getElementById('statWithPredictions').textContent=participants.filter(p=>p.predictions&&Object.keys(p.predictions).length>0).length;
-      document.getElementById('statMatchPreds').textContent=participants.filter(p=>p.matchPredictions&&Object.keys(p.matchPredictions).length>0).length;
-      document.getElementById('statBankClients').textContent=participants.filter(p=>p.hasBankAccount==='yes').length;
-      renderTopParticipants();
-      renderPredictionsAnalysis();
-    }
-
-    function renderTopParticipants() {
-      const c=document.getElementById('topParticipantsList');if(!c)return;
-      const s=[...participants].sort((a,b)=>b.points-a.points).slice(0,10);
-      if(s.length===0||s.every(p=>p.points===0)){c.innerHTML='<p style="color:var(--text-light);">أدخل النتائج أولاً</p>';return;}
-      let html='<table class="leaderboard-table"><thead><tr><th>#</th><th>الاسم</th><th>الجوال</th><th>المباريات</th><th>المجموعات</th><th style="color:#d4a843;">🏆 المجموع</th><th>عميل</th></tr></thead><tbody>';
-      s.forEach((p,i)=>{
-        const b=p.pointsBreakdown||{};
-        const matchPts=(b.matchResults||0)+(b.matchExact||0);
-        const groupPts=p.points-(matchPts)-(b.socialBonus||0)-(b.referralBonus||0);
-        html+='<tr><td><span class="rank-badge '+(i<3?'rank-'+(i+1):'rank-other')+'">'+(i+1)+'</span></td><td>'+p.name+'</td><td>'+p.phone+'</td><td>'+matchPts+'</td><td>'+groupPts+'</td><td style="font-weight:900;color:#d4a843;font-size:18px;">'+p.points+'</td><td>'+(p.hasBankAccount==='yes'?'✅':'❌')+'</td></tr>';
-      });
-      html+='</tbody></table>';
-      c.innerHTML=html;
-    }
-
-    function renderPredictionsAnalysis() {
-      const c=document.getElementById('predictionsAnalysis');if(!c)return;
-      const analysis={};
-      WORLD_CUP_DATA.groups.forEach(g=>{analysis[g.id]={winner:{},runnerUp:{}};g.teams.forEach(t=>{analysis[g.id].winner[t.code]=0;analysis[g.id].runnerUp[t.code]=0;});});
-      let total=0;
-      participants.forEach(p=>{if(p.predictions?.groups){total++;Object.entries(p.predictions.groups).forEach(([gId,pred])=>{if(analysis[gId]){if(pred.winner&&analysis[gId].winner[pred.winner]!==undefined)analysis[gId].winner[pred.winner]++;if(pred.runnerUp&&analysis[gId].runnerUp[pred.runnerUp]!==undefined)analysis[gId].runnerUp[pred.runnerUp]++;}})}});
-      if(total===0){c.innerHTML='<p style="color:var(--text-light);">لا توجد توقعات بعد</p>';return;}
-      let html='<p style="margin-bottom:15px;">تحليل '+total+' توقع من مشاركي بنك السلام كابيتال</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:15px;">';
-      WORLD_CUP_DATA.groups.forEach(g=>{
-        html+='<div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;background:white;"><h4 style="margin-bottom:10px;color:#283c8c;font-size:14px;">'+g.name+'</h4><div style="display:flex;gap:10px;"><div style="flex:1;"><p style="font-size:11px;color:var(--success);font-weight:700;">🥇 متصدر</p>';
-        Object.entries(analysis[g.id].winner).sort((a,b)=>b[1]-a[1]).forEach(([code,count])=>{
-          const team=g.teams.find(t=>t.code===code);const pct=Math.round((count/total)*100);
-          html+='<div style="font-size:12px;margin:3px 0;">'+(team?.flag||'')+' '+(team?.name||code)+': <strong>'+pct+'%</strong></div>';
-        });
-        html+='</div><div style="flex:1;"><p style="font-size:11px;color:var(--primary);font-weight:700;">🥈 وصيف</p>';
-        Object.entries(analysis[g.id].runnerUp).sort((a,b)=>b[1]-a[1]).forEach(([code,count])=>{
-          const team=g.teams.find(t=>t.code===code);const pct=Math.round((count/total)*100);
-          html+='<div style="font-size:12px;margin:3px 0;">'+(team?.flag||'')+' '+(team?.name||code)+': <strong>'+pct+'%</strong></div>';
-        });
-        html+='</div></div></div>';
-      });
-      html+='</div>';c.innerHTML=html;
-    }
-
-    // ==================== نتائج المجموعات ====================
-    function renderGroupsForm() {
-      const grid=document.getElementById('resultsGrid');if(!grid)return;
-      grid.innerHTML=WORLD_CUP_DATA.groups.map(g=>{
-        const r=officialResults[g.id]||{};
-        const opts=g.teams.map(t=>'<option value="'+t.code+'">'+t.flag+' '+t.name+'</option>').join('');
-        return '<div class="result-group"><h4>'+g.name+' ('+g.id+')</h4>'+
-          '<label style="font-size:13px;font-weight:600;color:var(--success);">🥇 متصدر</label><select class="result-select" data-group="'+g.id+'" data-pos="winner"><option value="">--</option>'+opts+'</select>'+
-          '<label style="font-size:13px;font-weight:600;color:var(--primary);">🥈 وصيف</label><select class="result-select" data-group="'+g.id+'" data-pos="runnerUp"><option value="">--</option>'+opts+'</select>'+
-          '<label style="font-size:13px;font-weight:600;color:var(--warning);">🥉 ثالث</label><select class="result-select" data-group="'+g.id+'" data-pos="third"><option value="">--</option>'+opts+'</select>'+
-          '<label style="font-size:13px;font-weight:600;color:var(--accent);">⚪ رابع</label><select class="result-select" data-group="'+g.id+'" data-pos="fourth"><option value="">--</option>'+opts+'</select></div>';
-      }).join('');
-      setTimeout(()=>{
-        WORLD_CUP_DATA.groups.forEach(g=>{const r=officialResults[g.id]||{};['winner','runnerUp','third','fourth'].forEach(p=>{const s=document.querySelector('[data-group="'+g.id+'"][data-pos="'+p+'"]');if(s&&r[p])s.value=r[p];});});
-        renderAdminBestThird();
-      },50);
-    }
-
-    function renderAdminBestThird() {
-      const grid=document.getElementById('adminBestThirdGrid');if(!grid)return;
-      const bt=officialResults.bestThird||[];
-      const teams=WORLD_CUP_DATA.groups.map(g=>{const t=g.teams[2];return{code:t?.code||'',name:t?.name||'',flag:t?.flag||'',groupId:g.id};}).filter(t=>t.code);
-      grid.innerHTML=teams.map((t,i)=>'<div class="best-third-item" style="background:#f0f8f0;"><span class="rank">'+(i+1)+'</span><span style="font-size:22px;">'+t.flag+'</span><span>'+t.name+'</span><span style="font-size:12px;">(المجموعة '+t.groupId+')</span><input type="checkbox" data-third-code="'+t.code+'" '+(bt.includes(t.code)?'checked':'')+' style="margin-right:auto;width:20px;height:20px;cursor:pointer;"></div>').join('');
-    }
-
-    function collectGroupResults() {
-      const results={};let valid=true;
-      WORLD_CUP_DATA.groups.forEach(g=>{
-        const w=document.querySelector('[data-group="'+g.id+'"][data-pos="winner"]')?.value;
-        const ru=document.querySelector('[data-group="'+g.id+'"][data-pos="runnerUp"]')?.value;
-        const th=document.querySelector('[data-group="'+g.id+'"][data-pos="third"]')?.value;
-        const fo=document.querySelector('[data-group="'+g.id+'"][data-pos="fourth"]')?.value;
-        if(!w||!ru){valid=false;alert('المجموعة '+g.id+': اختر المتصدر والوصيف');return null;}
-        if(new Set([w,ru,th,fo].filter(v=>v)).size!==[w,ru,th,fo].filter(v=>v).length){valid=false;alert('المجموعة '+g.id+': تكرار');return null;}
-        results[g.id]={winner:w,runnerUp:ru,third:th||'',fourth:fo||''};
-      });
-      if(!valid)return null;
-      const bt=[];document.querySelectorAll('[data-third-code]').forEach(cb=>{if(cb.checked)bt.push(cb.dataset.thirdCode);});
-      if(bt.length!==8){alert('اختر 8 بالضبط (اخترت '+bt.length+')');return null;}
-      results.bestThird=bt;
-      return results;
-    }
-
-    function saveGroupResults() {
-      const r=collectGroupResults();if(!r)return;
-      if(!confirm('حفظ نتائج المجموعات؟'))return;
-      officialResults=r;
-      setData('worldcup2026_results',r);
-      recalculateAllPoints();
-      alert('✅ تم حفظ نتائج المجموعات');
-      refreshDashboard();
-    }
-
-    function clearGroupResults() {
-      if(!confirm('مسح نتائج المجموعات؟'))return;
-      setData('worldcup2026_results',{});
-      officialResults={};
-      renderGroupsForm();
-      refreshDashboard();
-    }
-
-    // ==================== نتائج المباريات ====================
-    function renderMatchResults() {
-      const c=document.getElementById('adminMatchResults');if(!c)return;
-      let matches = GROUP_MATCHES;
-      if(currentMatchFilter==='md1') matches=matches.filter(m=>m.matchday===1);
-      else if(currentMatchFilter==='md2') matches=matches.filter(m=>m.matchday===2);
-      else if(currentMatchFilter==='md3') matches=matches.filter(m=>m.matchday===3);
+  <!-- التذييل -->
+  <footer class="main-footer" style="background:#0d1a4a;">
+    <div class="container">
+      <!-- شعار البنك -->
+      <div style="margin-bottom:20px;">
+        <img src="assets/logo-bank.png" alt="بنك السلام كابيتال" style="height:50px;width:auto;border-radius:8px;opacity:0.9;">
+        <div style="font-size:16px;font-weight:700;margin-top:8px;">بنك السلام كابيتال للتمويل الأصغر الإسلامي</div>
+        <p style="font-size:12px;opacity:0.6;">🇾🇪 مأرب - الجمهورية اليمنية</p>
+      </div>
       
-      let html='', lastGroup='';
-      matches.forEach(m=>{
-        const t1=getTeamByCode(m.team1), t2=getTeamByCode(m.team2);
-        const mr=matchResults[m.id]||{};
-        const hg=mr.home!==undefined?mr.home:'', ag=mr.away!==undefined?mr.away:'';
-        if(m.group!==lastGroup){lastGroup=m.group;const gn=WORLD_CUP_DATA.groups.find(g=>g.id===m.group)?.name||m.group;html+=`<div style="margin-top:12px;padding:6px 12px;background:#283c8c;color:white;border-radius:6px;font-weight:700;">📌 ${gn} - الجولة ${m.matchday}</div>`;}
-        html+=`<div class="match-row" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #f0f0f0;">
-          <div style="flex:1;text-align:left;">${t1?.flag||''} ${t1?.name||'?'}</div>
-          <input type="number" min="0" max="20" class="match-result-input" data-match="${m.id}" data-side="home" value="${hg}" placeholder="?" style="width:40px;padding:6px;border:2px solid #ddd;border-radius:6px;text-align:center;font-size:14px;font-weight:700;">
-          <span style="font-weight:700;">-</span>
-          <input type="number" min="0" max="20" class="match-result-input" data-match="${m.id}" data-side="away" value="${ag}" placeholder="?" style="width:40px;padding:6px;border:2px solid #ddd;border-radius:6px;text-align:center;font-size:14px;font-weight:700;">
-          <div style="flex:1;text-align:right;">${t2?.flag||''} ${t2?.name||'?'}</div>
-          <span style="font-size:11px;color:var(--text-light);">${m.date?.slice(5)||''}</span>
-        </div>`;
-      });
-      if(matches.length===0) html='<p style="text-align:center;padding:20px;color:var(--text-light);">لا توجد مباريات في هذا التصنيف</p>';
-      c.innerHTML=html;
-    }
+      <!-- روابط البنك -->
+      <div class="footer-links" style="gap:20px;">
+        <a href="https://www.alsalamcb.com" target="_blank" style="display:flex;align-items:center;gap:5px;">🌐 الموقع الرسمي</a>
+        <a href="https://www.facebook.com/acbsalambank" target="_blank" style="display:flex;align-items:center;gap:5px;">📘 فيسبوك</a>
+        <a href="https://x.com/alsalamcb" target="_blank" style="display:flex;align-items:center;gap:5px;">🐦 X (تويتر)</a>
+        <a href="https://www.instagram.com/alsalamcb/" target="_blank" style="display:flex;align-items:center;gap:5px;">📸 إنستغرام</a>
+        <a href="https://www.youtube.com/@alsalamcb" target="_blank" style="display:flex;align-items:center;gap:5px;">▶️ يوتيوب</a>
+        <a href="tel:8000086" style="display:flex;align-items:center;gap:5px;">📞 8000086</a>
+      </div>
 
-    function filterMatchRound(filter) {
-      currentMatchFilter=filter;
-      document.querySelectorAll('.filter-btn').forEach(b=>{
-        b.style.background='#e0e0e0';b.style.color='#333';
-      });
-      if(filter!=='all'){
-        const btn=document.querySelector(`.filter-btn[onclick*="'${filter}'"]`);
-        if(btn){btn.style.background='#283c8c';btn.style.color='white';}
-      }
-      renderMatchResults();
-    }
+      <!-- روابط التطبيق -->
+      <div class="footer-links" style="gap:15px;margin-bottom:15px;">
+        <a href="https://play.google.com/store/apps/details?id=com.AamalTech.AlsalamCapitalBank" target="_blank" style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.1);padding:6px 16px;border-radius:20px;">📱 Google Play</a>
+        <a href="https://apps.apple.com/app/id6503481023" target="_blank" style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.1);padding:6px 16px;border-radius:20px;">🍎 App Store</a>
+        <a href="admin/index.html" target="_blank" style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.1);padding:6px 16px;border-radius:20px;">⚙️ الإدارة</a>
+      </div>
 
-    function collectMatchResults() {
-      const results={};let count=0;
-      document.querySelectorAll('.match-result-input[data-side="home"]').forEach(inp=>{
-        const mid=inp.dataset.match;
-        const hv=inp.value.trim(), av=document.querySelector(`.match-result-input[data-match="${mid}"][data-side="away"]`)?.value.trim()||'';
-        if(hv!==''&&av!==''){results[mid]={home:parseInt(hv),away:parseInt(av)};count++;}
-      });
-      return{results,count};
-    }
+      <!-- روابط المساعدة -->
+      <div class="footer-links" style="margin-bottom:20px;">
+        <a href="#" onclick="document.getElementById('termsModal').classList.add('show');return false;">📋 الشروط والأحكام</a>
+        <a href="https://www.alsalamcb.com" target="_blank">🔒 سياسة الخصوصية</a>
+        <a href="tel:8000086">📞 اتصل بنا</a>
+      </div>
+      
+      <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:15px;">
+        <p style="font-size:13px;">© 2026 بنك السلام كابيتال للتمويل الأصغر الإسلامي - مأرب، الجمهورية اليمنية 🇾🇪</p>
+        <p style="font-size:11px;margin-top:5px;opacity:0.5;">مسابقة توقعات كأس العالم 2026 | جميع الحقوق محفوظة</p>
+      </div>
+    </div>
+  </footer>
 
-    function saveMatchResults() {
-      const {results,count}=collectMatchResults();
-      if(count===0){alert('لم تدخل أي نتائج');return;}
-      if(!confirm('حفظ نتائج '+count+' مباراة؟ سيتم إعادة حساب النقاط.'))return;
-      matchResults=results;
-      setData('worldcup2026_matchResults',results);
-      // Update officialResults with matchResults
-      const fullResults = getData('worldcup2026_results',{});
-      fullResults.matchResults = results;
-      setData('worldcup2026_results',fullResults);
-      officialResults=fullResults;
-      recalculateAllPoints();
-      alert('✅ تم حفظ نتائج '+count+' مباراة!');
-      refreshDashboard();
-    }
-
-    // ==================== حساب النقاط ====================
-    function recalculateAllPoints() {
-      participants.forEach(p=>{
-        let total=0;
-        const b={groupWinners:0,groupRunnersUp:0,bestThird:0,perfectGroups:0,socialBonus:p.predictions?.socialShare?5:0,referralBonus:(p.referrals?.length||0)*3,matchResults:0,matchExact:0};
-        
-        // Group points
-        if(officialResults.bestThird){
-          WORLD_CUP_DATA.groups.forEach(g=>{
-            const gr=officialResults[g.id];if(!gr)return;
-            const pg=p.predictions.groups?.[g.id];if(!pg)return;
-            if(pg.winner===gr.winner){b.groupWinners+=10;total+=10;}
-            if(pg.runnerUp===gr.runnerUp){b.groupRunnersUp+=10;total+=10;}
-            if(pg.winner===gr.winner&&pg.runnerUp===gr.runnerUp&&pg.third===gr.third&&pg.fourth===gr.fourth){b.perfectGroups+=30;total+=30;}
-          });
-          if(p.predictions?.bestThird&&officialResults.bestThird){
-            p.predictions.bestThird.forEach(c=>{if(officialResults.bestThird.includes(c)){b.bestThird+=15;total+=15;}});
-          }
-        }
-        
-        // Match points
-        const mr = officialResults.matchResults || getData('worldcup2026_matchResults',{});
-        if(Object.keys(mr).length>0 && p.matchPredictions){
-          Object.entries(p.matchPredictions).forEach(([mid,pred])=>{
-            const actual=mr[mid];if(!actual)return;
-            const pr=pred.home>pred.away?'1':pred.home<pred.away?'2':'X';
-            const ar=actual.home>actual.away?'1':actual.home<actual.away?'2':'X';
-            if(pr===ar){b.matchResults+=2;total+=2;}
-            if(pred.home===actual.home&&pred.away===actual.away){b.matchExact+=5;total+=5;}
-          });
-        }
-        
-        total+=b.socialBonus+b.referralBonus;
-        p.points=total;
-        p.pointsBreakdown=b;
-      });
-      setData('worldcup2026_participants',participants);
-    }
-
-    function recalculateAll() {
-      loadAllData();
-      recalculateAllPoints();
-      participants.sort((a,b)=>b.points-a.points);
-      participants.forEach((p,i)=>p.rank=i+1);
-      setData('worldcup2026_participants',participants);
-      alert('✅ تم إعادة حساب النقاط');
-      refreshDashboard();
-    }
-
-    // ==================== الإعدادات ====================
-    function togglePredictions() {
-      settings.predictionsOpen=document.getElementById('togglePredictions').checked;
-      setData('worldcup2026_settings',settings);
-      updateStatusBadge();
-    }
-    function updateStatusBadge() {
-      const b=document.getElementById('predictionsStatusBadge');
-      if(b){if(settings.predictionsOpen){b.className='badge-green';b.textContent='✅ مفتوح';}else{b.className='badge-red';b.textContent='🔒 مغلق';}}
-    }
-    function resetAllData() {
-      if(!confirm('⚠️ حذف جميع البيانات؟'))return;
-      if(!confirm('❌ تأكيد نهائي؟'))return;
-      ['worldcup2026_participants','worldcup2026_results','worldcup2026_settings','worldcup2026_matchResults','currentUser'].forEach(k=>localStorage.removeItem(k));
-      loadAllData();refreshDashboard();
-      alert('✅ تم الحذف');
-    }
-
-    // ==================== التصدير ====================
-    function refreshExport() {
-      loadAllData();
-      const p=document.getElementById('exportPreview');if(!p)return;
-      p.textContent=JSON.stringify(participants.map(x=>({
-        الاسم:x.name,الجوال:x.phone,المدينة:x.city||'',
-        'عميل السلام كابيتال':x.hasBankAccount==='yes'?'نعم':'لا',
-        'نقاط المجموعات':(x.pointsBreakdown?.groupWinners||0)+(x.pointsBreakdown?.groupRunnersUp||0)+(x.pointsBreakdown?.bestThird||0),
-        'نقاط المباريات':(x.pointsBreakdown?.matchResults||0)+(x.pointsBreakdown?.matchExact||0),
-        'إضافي':(x.pointsBreakdown?.socialBonus||0)+(x.pointsBreakdown?.referralBonus||0),
-        'المجموع':x.points,'رمز المشاركة':x.shareCode,
-        'عدد توقعات المباريات':Object.keys(x.matchPredictions||{}).length
-      })),null,2);
-    }
-    function exportCSV() {
-      loadAllData();
-      const h='الاسم,الجوال,المدينة,عميل السلام كابيتال,نقاط المجموعات,نقاط المباريات,إضافي,المجموع,رمز المشاركة';
-      const r=participants.map(p=>[p.name,p.phone,p.city||'',p.hasBankAccount==='yes'?'نعم':'لا',(p.pointsBreakdown?.groupWinners||0)+(p.pointsBreakdown?.groupRunnersUp||0)+(p.pointsBreakdown?.bestThird||0),(p.pointsBreakdown?.matchResults||0)+(p.pointsBreakdown?.matchExact||0),(p.pointsBreakdown?.socialBonus||0)+(p.pointsBreakdown?.referralBonus||0),p.points,p.shareCode].join(','));
-      downloadFile(h+'\n'+r.join('\n'),'مشاركون_بنك_السلام_كابيتال.csv','text/csv;charset=utf-8');
-    }
-    function exportJSON() {
-      loadAllData();
-      downloadFile(JSON.stringify(participants,null,2),'مشاركون_بنك_السلام_كابيتال.json','application/json');
-    }
-    function downloadFile(c,f,m){const b=new Blob([c],{type:m});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=f;a.click();URL.revokeObjectURL(u);}
-
-    // ==================== التحميل ====================
-    document.addEventListener('DOMContentLoaded',()=>{loadAllData();refreshDashboard();renderGroupsForm();renderMatchResults();refreshExport();});
-  </script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
